@@ -175,8 +175,8 @@ reobf {
 }
 
 shadowJar {
-    archiveBaseName.set('globalclientforge')
-    archiveClassifier.set('')
+    // archiveBaseName.set('globalclientforge')
+    archiveClassifier.set('shaded')
     // archiveFileName = "out.jarinjar"
 
     dependencies {
