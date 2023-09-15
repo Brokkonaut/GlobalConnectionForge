@@ -6,7 +6,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-version = '1.0'
+version = '1.0-SNAPSHOT'
 group = 'de.cubeside.globalconnectionforge' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'globalconnectionforge'
 
