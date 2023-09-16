@@ -2,7 +2,7 @@ package de.cubeside.connection;
 
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -29,7 +29,7 @@ public class GlobalClientMod {
     }
 
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
+    public void onServerStarting(ServerAboutToStartEvent event) {
         globalClient = new GlobalClientForge(this, event.getServer());
         globalClient.setServer(GlobalClientConfig.hostname.get(), GlobalClientConfig.port.get(), GlobalClientConfig.user.get(), GlobalClientConfig.password.get());
 
