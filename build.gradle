@@ -1,4 +1,5 @@
 plugins {
+    id 'java-library'
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.+'
@@ -142,7 +143,7 @@ dependencies {
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
-    implementation 'de.cubeside:globalconnectionclient:0.0.1-SNAPSHOT'
+    api 'de.cubeside:globalconnectionclient:0.0.1-SNAPSHOT'
 
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
@@ -187,7 +188,8 @@ shadowJar {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact jar
+            from components.java
+            // artifact jar
         }
     }
     repositories {
