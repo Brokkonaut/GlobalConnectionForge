@@ -120,7 +120,7 @@ class PlayerPropertiesImplementation implements PlayerPropertiesAPI {
                                 String property = dis.readUTF();
                                 String value = dis.readUTF();
                                 properties.put(property, value);
-                                MinecraftForge.EVENT_BUS.post(new GlobalPlayerPropertyChangedEvent(e.getSource(), target, property, null));
+                                MinecraftForge.EVENT_BUS.post(new GlobalPlayerPropertyChangedEvent(e.getSource(), target, property, value));
                             }
                         }
                     }
