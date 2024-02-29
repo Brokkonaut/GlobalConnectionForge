@@ -59,7 +59,7 @@ public class GlobalClientForge extends GlobalClient {
 
     @SubscribeEvent
     public void onPlayerJoin(PlayerLoggedInEvent e) {
-        Player p = e.getEntity();
+        Player p = e.getPlayer();
         // GlobalClientMod.LOGGER.debug("Player join: " + p.getName().getString());
         GlobalPlayer existing = getPlayer(p.getUUID());
         if (existing == null || !existing.isOnServer(getThisServer())) {
@@ -69,7 +69,7 @@ public class GlobalClientForge extends GlobalClient {
 
     @SubscribeEvent
     public void onPlayerQuit(PlayerLoggedOutEvent e) {
-        Player p = e.getEntity();
+        Player p = e.getPlayer();
         // GlobalClientMod.LOGGER.debug("Player quit: " + p.getName().getString());
         GlobalPlayer existing = getPlayer(p.getUUID());
         if (existing != null && existing.isOnServer(getThisServer())) {

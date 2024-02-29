@@ -8,6 +8,7 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
 
 /**
  * From StringUtilForge
@@ -64,7 +65,7 @@ public class ConnectionStringUtil {
                 }
                 if (!newStyle.equals(style)) {
                     if (!builder.isEmpty()) {
-                        components.add(Component.literal(builder.toString()).setStyle(style));
+                        components.add(new TextComponent(builder.toString()).setStyle(style));
                         builder.delete(0, builder.length());
                     }
                     style = newStyle;
@@ -78,12 +79,12 @@ public class ConnectionStringUtil {
                     }
                     if (urlMatcher.region(i, nextSpace).find()) {
                         if (!builder.isEmpty()) {
-                            components.add(Component.literal(builder.toString()).setStyle(style));
+                            components.add(new TextComponent(builder.toString()).setStyle(style));
                             builder.delete(0, builder.length());
                         }
                         String url = text.substring(i, nextSpace);
                         ClickEvent clickEvent = new ClickEvent(ClickEvent.Action.OPEN_URL, url.startsWith("http") ? url : "http://" + url);
-                        components.add(Component.literal(url).setStyle(style.withClickEvent(clickEvent)));
+                        components.add(new TextComponent(url).setStyle(style.withClickEvent(clickEvent)));
                         i = nextSpace - 1;
                         continue;
                     }
@@ -93,10 +94,10 @@ public class ConnectionStringUtil {
             }
         }
         if (!builder.isEmpty()) {
-            components.add(Component.literal(builder.toString()).setStyle(style));
+            components.add(new TextComponent(builder.toString()).setStyle(style));
         }
         if (components.isEmpty()) {
-            return Component.literal("");
+            return new TextComponent("");
         } else if (components.size() == 1) {
             return components.get(0);
         } else if (components.get(0).getStyle().equals(Style.EMPTY)) {
@@ -106,7 +107,7 @@ public class ConnectionStringUtil {
             }
             return parent;
         } else {
-            MutableComponent parent = Component.literal("");
+            MutableComponent parent = new TextComponent("");
             for (int i = 0; i < components.size(); i++) {
                 parent.append(components.get(i));
             }

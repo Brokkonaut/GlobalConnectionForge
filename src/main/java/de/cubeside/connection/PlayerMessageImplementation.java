@@ -6,6 +6,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.UUID;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.MutableComponent;
@@ -47,14 +50,14 @@ class PlayerMessageImplementation implements PlayerMessageAPI {
                         int type = dis.readByte();
                         if (type == MESSAGE_CHAT) {
                             String message = dis.readUTF();
-                            player.sendSystemMessage(ConnectionStringUtil.parseLegacyColoredString(message));
+                            player.sendMessage(ConnectionStringUtil.parseLegacyColoredString(message), new UUID(0, 0));
                         } else if (type == MESSAGE_CHAT_COMPONENTS) {
                             MutableComponent message = Component.Serializer.fromJson(dis.readUTF());
-                            player.sendSystemMessage(message);
+                            player.sendMessage(message, new UUID(0, 0));
                         } else if (type == MESSAGE_ACTION_BAR) {
                             String message = dis.readUTF();
                             player.displayClientMessage(null, false);
-                            player.sendSystemMessage(ConnectionStringUtil.parseLegacyColoredString(message), true);
+                            player.sendMessage(ConnectionStringUtil.parseLegacyColoredString(message), new UUID(0, 0)); //TODO ACTIONBAR
                         } else if (type == MESSAGE_TITLE) {
                             int flags = dis.readByte();
                             String title = ((flags & 1) != 0) ? dis.readUTF() : null;
@@ -94,7 +97,7 @@ class PlayerMessageImplementation implements PlayerMessageAPI {
         player.sendData(CHANNEL, baos.toByteArray());
         ServerPlayer p = server.getPlayerList().getPlayer(player.getUniqueId());
         if (p != null) {
-            p.sendSystemMessage(ConnectionStringUtil.parseLegacyColoredString(message));
+            p.sendMessage(ConnectionStringUtil.parseLegacyColoredString(message), new UUID(0, 0));
         }
     }
 
@@ -112,7 +115,7 @@ class PlayerMessageImplementation implements PlayerMessageAPI {
         player.sendData(CHANNEL, baos.toByteArray());
         ServerPlayer p = server.getPlayerList().getPlayer(player.getUniqueId());
         if (p != null) {
-            p.sendSystemMessage(message);
+            p.sendMessage(message, new UUID(0, 0));
         }
     }
 
@@ -134,7 +137,7 @@ class PlayerMessageImplementation implements PlayerMessageAPI {
         player.sendData(CHANNEL, baos.toByteArray());
         ServerPlayer p = server.getPlayerList().getPlayer(player.getUniqueId());
         if (p != null) {
-            p.sendSystemMessage(ConnectionStringUtil.parseLegacyColoredString(message), true);
+            p.sendMessage(ConnectionStringUtil.parseLegacyColoredString(message), new UUID(0, 0)); //TODO Actionbar
         }
     }
 
